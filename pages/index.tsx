@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 import { UrlForm } from '../components/UrlForm'
 import { GeneratedUrl } from '../components/GeneratedUrl'
-import { createShortUrl } from '../services/shortUrl'
+import { createUrlKey } from '../services/urlKeys'
 import { FormData } from '../types/form-data'
 
 const schema = yup.object({}).shape({
@@ -16,7 +16,7 @@ export default function Home() {
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: yupResolver(schema)
   });
-  const { mutate, data, reset } = useMutation(createShortUrl)
+  const { mutate, data, reset } = useMutation(createUrlKey)
 
   function onSubmit(formData: FormData) {
     mutate(formData);

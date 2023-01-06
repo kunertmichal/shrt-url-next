@@ -1,17 +1,24 @@
 import {GetServerSidePropsContext} from "next";
-import {getShortUrl} from "../services/shortUrl";
-import {redirectToUrl} from "../utils";
+import {getUrlKey} from "../services/urlKeys";
 
 export default function ShortUrlPage() {
   return <div>Loading...</div>;
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  if (!context.params?.urlKey) return;
+export async function getServerSideProps({ params }: GetServerSidePropsContext) {
+  if (!params?.urlKey) return;
   try {
-    const url = await getShortUrl(context.params.urlKey as string);
-    return redirectToUrl(url);
+    const url = await getUrlKey(params.urlKey as string);
+    return {
+      redirect: {
+        destination: url,
+        permanent: true,
+      }
+    }
   } catch (e) {
-    return redirectToUrl('/url-not-found');
+    return {
+      notFound: true,
+      props: {},
+    }
   }
 }
