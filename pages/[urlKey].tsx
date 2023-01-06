@@ -1,18 +1,17 @@
-import {useEffect} from "react";
-import {useRouter} from "next/router";
-import {useQuery} from "react-query";
+import {GetServerSidePropsContext} from "next";
 import {getShortUrl} from "../services/shortUrl";
+import {redirectToUrl} from "../utils";
 
 export default function ShortUrlPage() {
-  const router = useRouter()
-  const { urlKey } = router.query
-
-  useEffect(() => {
-    if (!urlKey) return
-    getShortUrl(urlKey as string).then((url) => {
-      window.location.href = url;
-    })
-  }, [urlKey])
-
   return <div>Loading...</div>;
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  if (!context.params?.urlKey) return;
+  try {
+    const url = await getShortUrl(context.params.urlKey as string);
+    return redirectToUrl(url);
+  } catch (e) {
+    return redirectToUrl('/url-not-found');
+  }
 }

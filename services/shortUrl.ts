@@ -1,5 +1,5 @@
-import { httpClient } from '../utils/httpClient'
-import { FormData } from '../types/form-data'
+import { httpClient } from '../utils';
+import { FormData } from '../types/form-data';
 
 export async function createShortUrl(data: FormData) {
   const response = await httpClient.post('/urls', data)
