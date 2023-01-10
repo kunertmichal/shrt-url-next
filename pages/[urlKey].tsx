@@ -8,10 +8,10 @@ export default function ShortUrlPage() {
 export async function getServerSideProps({ params }: GetServerSidePropsContext) {
   if (!params?.urlKey) return;
   try {
-    const url = await getUrlKey(params.urlKey as string);
+    const data = await getUrlKey(params.urlKey as string);
     return {
       redirect: {
-        destination: url,
+        destination: data.longUrl,
         permanent: true,
       }
     }

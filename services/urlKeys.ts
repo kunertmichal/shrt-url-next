@@ -6,7 +6,7 @@ export async function createUrlKey(data: FormData) {
   return response.data;
 }
 
-export async function getUrlKey(key: string) {
+export async function getUrlKey(key: string): Promise<{ longUrl: string }> {
   const response = await httpClient.get(`/urls/${key}`)
   return response.data;
 }
