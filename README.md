@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-It is a app that allows users to shorten their links and share them with others.
+It is an app that allows users to shorten their links and share them with others.
 
 ## Getting Started
 
